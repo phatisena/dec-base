@@ -100,8 +100,6 @@ namespace decbase {
         return tvl
     }
 
-
-
     //% blockid=decbase_dec2bin
     //% block="dec convert $nvl to bin in $dvl"
     //% group="bin and dec"
