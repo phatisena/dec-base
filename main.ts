@@ -36,8 +36,8 @@ namespace decbase {
         let vld = 0
         let nvl = 0
         let vix = 0
-        for (let nix = 0; nix < tvl.length; nix++) {
-            vix = anmt.indexOf(tvl.charAt((stl - 1) - nix))
+        for (let nix = stl - 1; nix >= 0; nix--) {
+            vix = anmt.indexOf(tvl.charAt(nix))
             if (vld == 0) {
                 nvl += vix
                 vld = bvl
@@ -245,4 +245,10 @@ namespace decbase {
         return nma ^ nmb
     }
 
+    //% blockid=decbase_charidx
+    //% block="Char code in $txt at $cidx"
+    //% group="Charcter index"
+    export function CharIdxAt(txt: string ,cidx: number): number {
+        return txt.charCodeAt(cidx)
+    }
 }
