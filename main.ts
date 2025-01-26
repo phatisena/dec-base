@@ -1,15 +1,15 @@
+
 //% color="#7fd12c" icon="\uf2a1"
 namespace decbase {
 
     let anmt = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     //% blockid=decbase_dec2base
-    //% block="convert $nvl in base $bvl to digit $dvl"
+    //% block="convert $nvl in base $bvl|| to digit $dvl"
     //% group="main operation"
     //% weight=10
-    export function decEncode(nvl: number, bvl: number, dvl: number): string {
-        let sti = ""
-        let ani = nvl
+    export function decEncode(nvl: number, bvl: number, dvl: number=null): string {
+        let sti = "", ani = nvl
         if (ani > 0) {
             while (ani > 0) {
                 sti = "" + anmt.charAt(ani % bvl) + sti
@@ -18,9 +18,9 @@ namespace decbase {
         } else {
             sti = anmt.charAt(0)
         }
-        if (dvl <= 0) {
-            return sti
-        }
+        if (dvl == null) return sti
+        if (dvl <= 0) return sti
+        if (sti.length > dvl) return sti
         if (dvl - sti.length > 0) {
             while (dvl - sti.length > 0) {
                 sti = "" + anmt.charAt(0) + sti
@@ -34,10 +34,7 @@ namespace decbase {
     //% group="main operation"
     //% weight=8
     export function decDecode(tvl: string, bvl: number): number {
-        let stl = tvl.length
-        let vld = 0
-        let nvl = 0
-        let vix = 0
+        let stl = tvl.length, vld = 0, nvl = 0, vix = 0
         for (let nix = stl - 1; nix >= 0; nix--) {
             vix = anmt.indexOf(tvl.charAt(nix))
             if (vld == 0) {
@@ -72,8 +69,7 @@ namespace decbase {
     //% group="sum operation"
     //% weight=4
     export function sumDecDigit(nvl: number, bvl: number): number {
-        let dvl = 0
-        let dvi = 0
+        let dvl = 0, dvi = 0
         while (nvl >= dvl) {
             if (dvl == 0) {
                 dvi += 1
@@ -106,11 +102,11 @@ namespace decbase {
     }
 
     //% blockid=decbase_dec2bin
-    //% block="dec convert $nvl to bin in $dvl"
+    //% block="dec convert $nvl to bin|| in $dvl"
     //% group="binary operation"
     //% weight=10
-    export function dec2bin(nvl: number, dvl: number): string {
-        return decEncode(nvl,2,dvl)
+    export function dec2bin(nvl: number, dvl: number=null): string {
+        return decEncode(nvl, 2, dvl)
     }
 
     //% blockid=decbase_bin2dec
@@ -118,15 +114,15 @@ namespace decbase {
     //% group="decimal operation"
     //% weight=10
     export function bin2dec(tvl: string): number {
-        return decDecode(tvl,2)
+        return decDecode(tvl, 2)
     }
 
     //% blockid=decbase_dec2hex
-    //% block="dec convert $nvl to hex in $dvl"
+    //% block="dec convert $nvl to hex|| in $dvl"
     //% group="hexadecimal operation"
     //% weight=10
-    export function dec2hex(nvl: number, dvl: number): string {
-        return decEncode(nvl,16,dvl)
+    export function dec2hex(nvl: number, dvl: number=null): string {
+        return decEncode(nvl, 16, dvl)
     }
 
     //% blockid=decbase_hex2dec
@@ -134,15 +130,15 @@ namespace decbase {
     //% group="decimal operation"
     //% weight=8
     export function hex2dec(tvl: string): number {
-        return decDecode(tvl,16)
+        return decDecode(tvl, 16)
     }
 
     //% blockid=decbase_dec2oct
-    //% block="dec convert $nvl to oct in $dvl"
+    //% block="dec convert $nvl to oct|| in $dvl"
     //% group="octal operation"
     //% weight=10
-    export function dec2oct(nvl: number, dvl: number): string {
-        return decEncode(nvl,8,dvl)
+    export function dec2oct(nvl: number, dvl: number=null): string {
+        return decEncode(nvl, 8, dvl)
     }
 
     //% blockid=decbase_oct2dec
@@ -150,55 +146,55 @@ namespace decbase {
     //% group="decimal operation"
     //% weight=6
     export function oct2dec(tvl: string): number {
-        return decDecode(tvl,2)
+        return decDecode(tvl, 2)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="hex convert $tvl to bin in $dvl"
+    //% block="hex convert $tvl to bin|| in $dvl"
     //% group="binary operation"
     //% weight=8
-    export function hex2bin(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,16),2)
+    export function hex2bin(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 16), 2)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="oct convert $tvl to bin in $dvl"
+    //% block="oct convert $tvl to bin|| in $dvl"
     //% group="binary operation"
     //% weight=6
-    export function oct2bin(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,8),2,dvl)
+    export function oct2bin(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 8), 2, dvl)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="bin convert $tvl to hex in $dvl"
+    //% block="bin convert $tvl to hex|| in $dvl"
     //% group="hexadecimal operation"
     //% weight=8
-    export function bin2hex(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,2),16)
+    export function bin2hex(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 2), 16)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="oct convert $tvl to hex in $dvl"
+    //% block="oct convert $tvl to hex|| in $dvl"
     //% group="hexadecimal operation"
     //% weight=6
-    export function oct2hex(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,8),16,dvl)
+    export function oct2hex(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 8), 16, dvl)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="bin convert $tvl to oct in $dvl"
+    //% block="bin convert $tvl to oct|| in $dvl"
     //% group="octal operation"
     //% weight=8
-    export function bin2oct(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,2),8)
+    export function bin2oct(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 2), 8)
     }
 
     //% blockid=decbase_oct2dec
-    //% block="hex convert $tvl to oct in $dvl"
+    //% block="hex convert $tvl to oct|| in $dvl"
     //% group="octal operation"
     //% weight=6
-    export function hex2oct(tvl: string, dvl: number): number {
-        return decEncode(decDecode(tvl,16),8,dvl)
+    export function hex2oct(tvl: string, dvl: number=null): string {
+        return decEncode(decDecode(tvl, 16), 8, dvl)
     }
 
     //% blockid=decbase_numxor
@@ -213,7 +209,7 @@ namespace decbase {
     //% block="Char code in $txt at $cidx"
     //% group="Charcter index"
     //% weight=10
-    export function CharIdxAt(txt: string ,cidx: number): number {
+    export function CharIdxAt(txt: string, cidx: number): number {
         return txt.charCodeAt(cidx)
     }
 }
