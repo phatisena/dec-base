@@ -19,8 +19,7 @@
         "targetId": "arcade"
     },
     "supportedTargets": [
-        "arcade",
-        "microbit"
+        "arcade"
     ],
     "preferredEditor": "tsprj"
 }
