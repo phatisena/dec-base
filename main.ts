@@ -56,7 +56,8 @@ namespace decbase {
     //% group="sum operation"
     //% weight=6
     export function sumDecimal(nvl: number, bvl: number): number {
-        let dvl = 0, bvl = Math.max(bvl,0), bvl = Math.min(bvl,anmt.length-1)
+        let dvl = 0
+        bvl = Math.max(bvl,0), bvl = Math.min(bvl,anmt.length-1)
         while (nvl >= dvl) {
             if (dvl == 0) {
                 dvl = bvl
@@ -72,7 +73,8 @@ namespace decbase {
     //% group="sum operation"
     //% weight=4
     export function sumDecDigit(nvl: number, bvl: number): number {
-        let dvl = 0, dvi = 0, bvl = Math.max(bvl,0), bvl = Math.min(bvl,anmt.length-1)
+        let dvl = 0, dvi = 0
+        bvl = Math.max(bvl,0), bvl = Math.min(bvl,anmt.length-1)
         while (nvl >= dvl) {
             if (dvl == 0) {
                 dvi += 1
